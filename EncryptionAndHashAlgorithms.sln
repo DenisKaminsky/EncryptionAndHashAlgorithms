@@ -1,0 +1,37 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.6.33723.286
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EncryptionAndHashAlgorithms", "EncryptionAndHashAlgorithms\EncryptionAndHashAlgorithms.csproj", "{8B71AEA9-1A7F-4306-B468-C18CDA166C20}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Hashing", "Hashing\Hashing.csproj", "{5EF55192-0D85-42E1-A0B6-3EFAADAC8E64}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Encryption", "Encryption\Encryption.csproj", "{716C2D00-23D7-4CAE-A1CF-12B19E03549B}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8B71AEA9-1A7F-4306-B468-C18CDA166C20}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8B71AEA9-1A7F-4306-B468-C18CDA166C20}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8B71AEA9-1A7F-4306-B468-C18CDA166C20}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8B71AEA9-1A7F-4306-B468-C18CDA166C20}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5EF55192-0D85-42E1-A0B6-3EFAADAC8E64}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5EF55192-0D85-42E1-A0B6-3EFAADAC8E64}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5EF55192-0D85-42E1-A0B6-3EFAADAC8E64}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5EF55192-0D85-42E1-A0B6-3EFAADAC8E64}.Release|Any CPU.Build.0 = Release|Any CPU
+		{716C2D00-23D7-4CAE-A1CF-12B19E03549B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{716C2D00-23D7-4CAE-A1CF-12B19E03549B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{716C2D00-23D7-4CAE-A1CF-12B19E03549B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{716C2D00-23D7-4CAE-A1CF-12B19E03549B}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {719B1F68-E2FA-49BF-9AC5-E0A6B3EAF560}
+	EndGlobalSection
+EndGlobal
