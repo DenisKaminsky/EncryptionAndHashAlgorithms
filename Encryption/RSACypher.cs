@@ -26,7 +26,7 @@ namespace Encryption
 
         public (byte[] PublicKey, byte[] PrivateKey) GenerateKeys(int size)
         {
-            using (var rsa = new RSACryptoServiceProvider(1024))
+            using (var rsa = new RSACryptoServiceProvider(size))
             {
                 var publicKey = rsa.ExportRSAPublicKey();
                 var privateKey = rsa.ExportRSAPrivateKey();
