@@ -1,4 +1,8 @@
+using Encryption;
 using Hashing;
+using Hashing.SystemHash;
+using System.Security.Cryptography;
+using System.Text;
 
 namespace EncryptionAndHashAlgorithms
 {
@@ -34,6 +38,26 @@ namespace EncryptionAndHashAlgorithms
             }
         }
 
+        private PBKDF2 _pbkf2_sha256 { get; set; }
+        private PBKDF2 PBKDF2_Sha256
+        {
+            get
+            {
+                _pbkf2_sha256 ??= new PBKDF2(HashAlgorithmName.SHA256);
+                return _pbkf2_sha256;
+            }
+        }
+
+        private RSACypher _rsaCypher { get; set; }
+        private RSACypher RSACypher
+        {
+            get
+            {
+                _rsaCypher ??= new RSACypher();
+                return _rsaCypher;
+            }
+        }
+
         public MainForm()
         {
             InitializeComponent();
@@ -44,9 +68,20 @@ namespace EncryptionAndHashAlgorithms
             CalculateSystemHashButton.Enabled = InputSystemHash.Text.Trim().Length > 0;
         }
 
+        private void RSAInput_TextChanged(object sender, EventArgs e)
+        {
+            var enabled = RSAInput.Text.Trim().Length > 0;
+            RSAEncryptButton.Enabled = RSADecryptButton.Enabled = enabled;
+        }
+
         private void CopySystemHash_Click(object sender, EventArgs e)
         {
             Clipboard.SetText(OutputSystemHash.Text);
+        }
+
+        private void RSAOutputCopy_Click(object sender, EventArgs e)
+        {
+            Clipboard.SetText(RSAOutput.Text);
         }
 
         private void CalculateSystemHashButton_Click(object sender, EventArgs e)
@@ -66,10 +101,37 @@ namespace EncryptionAndHashAlgorithms
             {
                 output = SystemSha512.CalculateHash(input);
             }
+            else if (PBKDF2HashOption.Checked)
+            {
+                output = PBKDF2_Sha256.CalculateHash(InputSystemHash.Text, "test");
+            }
 
             OutputSystemHash.Text = output;
             OutputSystemHash.SelectAll();
             OutputSystemHash.Focus();
+        }
+
+        private void GenerateRSAKeys_Click(object sender, EventArgs e)
+        {
+            var (PublicKey, PrivateKey) = RSACypher.GenerateKeys(1024);
+            RSAPublicKeyInput.Text = Convert.ToBase64String(PublicKey);
+            RSAPrivateKeyInput.Text = Convert.ToBase64String(PrivateKey);
+        }
+
+        private void RSAEncryptButton_Click(object sender, EventArgs e)
+        {
+            var output = RSACypher.Encrypt(RSAInput.Text.Trim(), Convert.FromBase64String(RSAPublicKeyInput.Text.Trim()));
+            RSAOutput.Text = Convert.ToBase64String(output);
+            RSAOutput.SelectAll();
+            RSAOutput.Focus();
+        }
+
+        private void RSADecryptButton_Click(object sender, EventArgs e)
+        {
+            var output = RSACypher.Decrypt(Convert.FromBase64String(RSAInput.Text.Trim()), Convert.FromBase64String(RSAPrivateKeyInput.Text.Trim()));
+            RSAOutput.Text = Encoding.UTF8.GetString(output);
+            RSAOutput.SelectAll();
+            RSAOutput.Focus();
         }
     }
 }

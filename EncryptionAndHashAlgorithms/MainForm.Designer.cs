@@ -32,21 +32,39 @@
             HashTabPanel = new TabPage();
             HashTypeTabControl = new TabControl();
             SystemHashTypeTab = new TabPage();
+            PBKDF2HashOption = new RadioButton();
             CopySystemHash = new Button();
             OutputSystemHash = new TextBox();
+            InputSystemHash = new TextBox();
             label2 = new Label();
             Sha512Option = new RadioButton();
             SHA256Option = new RadioButton();
             MD5Option = new RadioButton();
             CalculateSystemHashButton = new Button();
             label1 = new Label();
-            InputSystemHash = new TextBox();
-            CustomHashTypeTab = new TabPage();
             EncryptionTabPanel = new TabPage();
+            EctyptionTypeTabControl = new TabControl();
+            RSAOption = new TabPage();
+            RSAOutputCopy = new Button();
+            label5 = new Label();
+            RSAEncryptButton = new Button();
+            RSAOutput = new TextBox();
+            InputRSA = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            RSADecryptButton = new Button();
+            GenerateRSAKeys = new Button();
+            RSAInput = new TextBox();
+            RSAPrivateKeyInput = new TextBox();
+            RSAPublicKeyInput = new TextBox();
+            AesOption = new TabPage();
             MainTabControl.SuspendLayout();
             HashTabPanel.SuspendLayout();
             HashTypeTabControl.SuspendLayout();
             SystemHashTypeTab.SuspendLayout();
+            EncryptionTabPanel.SuspendLayout();
+            EctyptionTypeTabControl.SuspendLayout();
+            RSAOption.SuspendLayout();
             SuspendLayout();
             // 
             // MainTabControl
@@ -73,7 +91,6 @@
             // HashTypeTabControl
             // 
             HashTypeTabControl.Controls.Add(SystemHashTypeTab);
-            HashTypeTabControl.Controls.Add(CustomHashTypeTab);
             HashTypeTabControl.Location = new Point(6, 4);
             HashTypeTabControl.Name = "HashTypeTabControl";
             HashTypeTabControl.SelectedIndex = 0;
@@ -82,15 +99,16 @@
             // 
             // SystemHashTypeTab
             // 
+            SystemHashTypeTab.Controls.Add(PBKDF2HashOption);
             SystemHashTypeTab.Controls.Add(CopySystemHash);
             SystemHashTypeTab.Controls.Add(OutputSystemHash);
+            SystemHashTypeTab.Controls.Add(InputSystemHash);
             SystemHashTypeTab.Controls.Add(label2);
             SystemHashTypeTab.Controls.Add(Sha512Option);
             SystemHashTypeTab.Controls.Add(SHA256Option);
             SystemHashTypeTab.Controls.Add(MD5Option);
             SystemHashTypeTab.Controls.Add(CalculateSystemHashButton);
             SystemHashTypeTab.Controls.Add(label1);
-            SystemHashTypeTab.Controls.Add(InputSystemHash);
             SystemHashTypeTab.Location = new Point(4, 26);
             SystemHashTypeTab.Name = "SystemHashTypeTab";
             SystemHashTypeTab.Padding = new Padding(3);
@@ -99,10 +117,21 @@
             SystemHashTypeTab.Text = "System";
             SystemHashTypeTab.UseVisualStyleBackColor = true;
             // 
+            // PBKDF2HashOption
+            // 
+            PBKDF2HashOption.AutoSize = true;
+            PBKDF2HashOption.Location = new Point(350, 60);
+            PBKDF2HashOption.Name = "PBKDF2HashOption";
+            PBKDF2HashOption.Size = new Size(127, 21);
+            PBKDF2HashOption.TabIndex = 10;
+            PBKDF2HashOption.TabStop = true;
+            PBKDF2HashOption.Text = "PBKDF2 (SHA256)";
+            PBKDF2HashOption.UseVisualStyleBackColor = true;
+            // 
             // CopySystemHash
             // 
             CopySystemHash.BackColor = Color.LightSteelBlue;
-            CopySystemHash.Location = new Point(49, 189);
+            CopySystemHash.Location = new Point(49, 224);
             CopySystemHash.Name = "CopySystemHash";
             CopySystemHash.Size = new Size(429, 30);
             CopySystemHash.TabIndex = 9;
@@ -114,16 +143,27 @@
             // 
             OutputSystemHash.BorderStyle = BorderStyle.FixedSingle;
             OutputSystemHash.Location = new Point(49, 158);
+            OutputSystemHash.Multiline = true;
             OutputSystemHash.Name = "OutputSystemHash";
             OutputSystemHash.ReadOnly = true;
-            OutputSystemHash.Size = new Size(429, 25);
+            OutputSystemHash.Size = new Size(429, 60);
             OutputSystemHash.TabIndex = 8;
             OutputSystemHash.TextAlign = HorizontalAlignment.Center;
+            // 
+            // InputSystemHash
+            // 
+            InputSystemHash.BorderStyle = BorderStyle.FixedSingle;
+            InputSystemHash.Location = new Point(49, 22);
+            InputSystemHash.Name = "InputSystemHash";
+            InputSystemHash.Size = new Size(429, 25);
+            InputSystemHash.TabIndex = 0;
+            InputSystemHash.TextAlign = HorizontalAlignment.Center;
+            InputSystemHash.TextChanged += InputSystemHash_TextChanged;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new Point(2, 162);
+            label2.Location = new Point(2, 178);
             label2.Name = "label2";
             label2.Size = new Size(48, 17);
             label2.TabIndex = 7;
@@ -132,7 +172,7 @@
             // Sha512Option
             // 
             Sha512Option.AutoSize = true;
-            Sha512Option.Location = new Point(367, 60);
+            Sha512Option.Location = new Point(254, 60);
             Sha512Option.Name = "Sha512Option";
             Sha512Option.Size = new Size(75, 21);
             Sha512Option.TabIndex = 6;
@@ -142,7 +182,7 @@
             // SHA256Option
             // 
             SHA256Option.AutoSize = true;
-            SHA256Option.Location = new Point(227, 60);
+            SHA256Option.Location = new Point(146, 60);
             SHA256Option.Name = "SHA256Option";
             SHA256Option.Size = new Size(75, 21);
             SHA256Option.TabIndex = 5;
@@ -153,7 +193,7 @@
             // 
             MD5Option.AutoSize = true;
             MD5Option.Checked = true;
-            MD5Option.Location = new Point(92, 60);
+            MD5Option.Location = new Point(59, 60);
             MD5Option.Name = "MD5Option";
             MD5Option.Size = new Size(54, 21);
             MD5Option.TabIndex = 4;
@@ -182,35 +222,173 @@
             label1.TabIndex = 1;
             label1.Text = "Input";
             // 
-            // InputSystemHash
-            // 
-            InputSystemHash.BorderStyle = BorderStyle.FixedSingle;
-            InputSystemHash.Location = new Point(49, 22);
-            InputSystemHash.Name = "InputSystemHash";
-            InputSystemHash.Size = new Size(429, 25);
-            InputSystemHash.TabIndex = 0;
-            InputSystemHash.TextAlign = HorizontalAlignment.Center;
-            InputSystemHash.TextChanged += InputSystemHash_TextChanged;
-            // 
-            // CustomHashTypeTab
-            // 
-            CustomHashTypeTab.Location = new Point(4, 26);
-            CustomHashTypeTab.Name = "CustomHashTypeTab";
-            CustomHashTypeTab.Padding = new Padding(3);
-            CustomHashTypeTab.Size = new Size(492, 270);
-            CustomHashTypeTab.TabIndex = 1;
-            CustomHashTypeTab.Text = "Custom";
-            CustomHashTypeTab.UseVisualStyleBackColor = true;
-            // 
             // EncryptionTabPanel
             // 
+            EncryptionTabPanel.BackColor = Color.LightSteelBlue;
+            EncryptionTabPanel.Controls.Add(EctyptionTypeTabControl);
             EncryptionTabPanel.Location = new Point(4, 26);
             EncryptionTabPanel.Name = "EncryptionTabPanel";
             EncryptionTabPanel.Padding = new Padding(3);
             EncryptionTabPanel.Size = new Size(512, 310);
             EncryptionTabPanel.TabIndex = 1;
             EncryptionTabPanel.Text = "Encryption";
-            EncryptionTabPanel.UseVisualStyleBackColor = true;
+            // 
+            // EctyptionTypeTabControl
+            // 
+            EctyptionTypeTabControl.Controls.Add(RSAOption);
+            EctyptionTypeTabControl.Controls.Add(AesOption);
+            EctyptionTypeTabControl.Location = new Point(6, 6);
+            EctyptionTypeTabControl.Name = "EctyptionTypeTabControl";
+            EctyptionTypeTabControl.SelectedIndex = 0;
+            EctyptionTypeTabControl.Size = new Size(500, 301);
+            EctyptionTypeTabControl.TabIndex = 0;
+            // 
+            // RSAOption
+            // 
+            RSAOption.Controls.Add(RSAOutputCopy);
+            RSAOption.Controls.Add(label5);
+            RSAOption.Controls.Add(RSAEncryptButton);
+            RSAOption.Controls.Add(RSAOutput);
+            RSAOption.Controls.Add(InputRSA);
+            RSAOption.Controls.Add(label4);
+            RSAOption.Controls.Add(label3);
+            RSAOption.Controls.Add(RSADecryptButton);
+            RSAOption.Controls.Add(GenerateRSAKeys);
+            RSAOption.Controls.Add(RSAInput);
+            RSAOption.Controls.Add(RSAPrivateKeyInput);
+            RSAOption.Controls.Add(RSAPublicKeyInput);
+            RSAOption.Location = new Point(4, 26);
+            RSAOption.Name = "RSAOption";
+            RSAOption.Padding = new Padding(3);
+            RSAOption.Size = new Size(492, 271);
+            RSAOption.TabIndex = 0;
+            RSAOption.Text = "RSA";
+            RSAOption.UseVisualStyleBackColor = true;
+            // 
+            // RSAOutputCopy
+            // 
+            RSAOutputCopy.BackColor = Color.LightSteelBlue;
+            RSAOutputCopy.Location = new Point(85, 236);
+            RSAOutputCopy.Name = "RSAOutputCopy";
+            RSAOutputCopy.Size = new Size(401, 29);
+            RSAOutputCopy.TabIndex = 11;
+            RSAOutputCopy.Text = "Copy to clipboard";
+            RSAOutputCopy.UseVisualStyleBackColor = false;
+            RSAOutputCopy.Click += RSAOutputCopy_Click;
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Location = new Point(32, 209);
+            label5.Name = "label5";
+            label5.Size = new Size(48, 17);
+            label5.TabIndex = 10;
+            label5.Text = "Output";
+            // 
+            // RSAEncryptButton
+            // 
+            RSAEncryptButton.Enabled = false;
+            RSAEncryptButton.Location = new Point(85, 147);
+            RSAEncryptButton.Name = "RSAEncryptButton";
+            RSAEncryptButton.Size = new Size(199, 32);
+            RSAEncryptButton.TabIndex = 9;
+            RSAEncryptButton.Text = "Encrypt";
+            RSAEncryptButton.UseVisualStyleBackColor = true;
+            RSAEncryptButton.Click += RSAEncryptButton_Click;
+            // 
+            // RSAOutput
+            // 
+            RSAOutput.BorderStyle = BorderStyle.FixedSingle;
+            RSAOutput.Enabled = false;
+            RSAOutput.Location = new Point(85, 205);
+            RSAOutput.Name = "RSAOutput";
+            RSAOutput.ReadOnly = true;
+            RSAOutput.Size = new Size(401, 25);
+            RSAOutput.TabIndex = 8;
+            // 
+            // InputRSA
+            // 
+            InputRSA.AutoSize = true;
+            InputRSA.Location = new Point(41, 117);
+            InputRSA.Name = "InputRSA";
+            InputRSA.Size = new Size(37, 17);
+            InputRSA.TabIndex = 7;
+            InputRSA.Text = "Input";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Location = new Point(6, 34);
+            label4.Name = "label4";
+            label4.Size = new Size(72, 17);
+            label4.TabIndex = 6;
+            label4.Text = "Private Key";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Location = new Point(12, 10);
+            label3.Name = "label3";
+            label3.Size = new Size(67, 17);
+            label3.TabIndex = 5;
+            label3.Text = "Public Key";
+            // 
+            // RSADecryptButton
+            // 
+            RSADecryptButton.Enabled = false;
+            RSADecryptButton.Location = new Point(290, 147);
+            RSADecryptButton.Name = "RSADecryptButton";
+            RSADecryptButton.Size = new Size(196, 32);
+            RSADecryptButton.TabIndex = 4;
+            RSADecryptButton.Text = "Decrypt";
+            RSADecryptButton.UseVisualStyleBackColor = true;
+            RSADecryptButton.Click += RSADecryptButton_Click;
+            // 
+            // GenerateRSAKeys
+            // 
+            GenerateRSAKeys.BackColor = Color.Salmon;
+            GenerateRSAKeys.Location = new Point(85, 65);
+            GenerateRSAKeys.Name = "GenerateRSAKeys";
+            GenerateRSAKeys.Size = new Size(401, 30);
+            GenerateRSAKeys.TabIndex = 3;
+            GenerateRSAKeys.Text = "Generate Keys";
+            GenerateRSAKeys.UseVisualStyleBackColor = false;
+            GenerateRSAKeys.Click += GenerateRSAKeys_Click;
+            // 
+            // RSAInput
+            // 
+            RSAInput.BorderStyle = BorderStyle.FixedSingle;
+            RSAInput.Location = new Point(85, 116);
+            RSAInput.Name = "RSAInput";
+            RSAInput.Size = new Size(401, 25);
+            RSAInput.TabIndex = 2;
+            RSAInput.TextChanged += RSAInput_TextChanged;
+            // 
+            // RSAPrivateKeyInput
+            // 
+            RSAPrivateKeyInput.BorderStyle = BorderStyle.FixedSingle;
+            RSAPrivateKeyInput.Location = new Point(85, 34);
+            RSAPrivateKeyInput.Name = "RSAPrivateKeyInput";
+            RSAPrivateKeyInput.Size = new Size(401, 25);
+            RSAPrivateKeyInput.TabIndex = 1;
+            // 
+            // RSAPublicKeyInput
+            // 
+            RSAPublicKeyInput.BorderStyle = BorderStyle.FixedSingle;
+            RSAPublicKeyInput.Location = new Point(85, 7);
+            RSAPublicKeyInput.Name = "RSAPublicKeyInput";
+            RSAPublicKeyInput.Size = new Size(401, 25);
+            RSAPublicKeyInput.TabIndex = 0;
+            // 
+            // AesOption
+            // 
+            AesOption.Location = new Point(4, 26);
+            AesOption.Name = "AesOption";
+            AesOption.Padding = new Padding(3);
+            AesOption.Size = new Size(492, 271);
+            AesOption.TabIndex = 1;
+            AesOption.Text = "AES";
+            AesOption.UseVisualStyleBackColor = true;
             // 
             // MainForm
             // 
@@ -226,6 +404,10 @@
             HashTypeTabControl.ResumeLayout(false);
             SystemHashTypeTab.ResumeLayout(false);
             SystemHashTypeTab.PerformLayout();
+            EncryptionTabPanel.ResumeLayout(false);
+            EctyptionTypeTabControl.ResumeLayout(false);
+            RSAOption.ResumeLayout(false);
+            RSAOption.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -236,15 +418,30 @@
         private TabPage EncryptionTabPanel;
         private TabControl HashTypeTabControl;
         private TabPage SystemHashTypeTab;
-        private TabPage CustomHashTypeTab;
-        private Label label1;
+        private Button CopySystemHash;
+        private TextBox OutputSystemHash;
         private TextBox InputSystemHash;
-        private Button CalculateSystemHashButton;
+        private Label label2;
+        private RadioButton Sha512Option;
         private RadioButton SHA256Option;
         private RadioButton MD5Option;
-        private RadioButton Sha512Option;
-        private TextBox OutputSystemHash;
-        private Label label2;
-        private Button CopySystemHash;
+        private Button CalculateSystemHashButton;
+        private Label label1;
+        private RadioButton PBKDF2HashOption;
+        private TabControl EctyptionTypeTabControl;
+        private TabPage RSAOption;
+        private TabPage AesOption;
+        private TextBox RSAInput;
+        private TextBox RSAPrivateKeyInput;
+        private TextBox RSAPublicKeyInput;
+        private Label label4;
+        private Label label3;
+        private Button RSADecryptButton;
+        private Button GenerateRSAKeys;
+        private Label InputRSA;
+        private Label label5;
+        private Button RSAEncryptButton;
+        private TextBox RSAOutput;
+        private Button RSAOutputCopy;
     }
 }
