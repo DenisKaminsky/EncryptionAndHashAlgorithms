@@ -58,6 +58,16 @@ namespace EncryptionAndHashAlgorithms
             }
         }
 
+        private AESCypher _aesCypher { get; set; }
+        private AESCypher AESCypher
+        {
+            get
+            {
+                _aesCypher ??= new AESCypher();
+                return _aesCypher;
+            }
+        }
+
         public MainForm()
         {
             InitializeComponent();
@@ -74,14 +84,34 @@ namespace EncryptionAndHashAlgorithms
             RSAEncryptButton.Enabled = RSADecryptButton.Enabled = enabled;
         }
 
+        private void AESInput_TextChanged(object sender, EventArgs e)
+        {
+            var enabled = AESInput.Text.Trim().Length > 0;
+            AESEncryptButton.Enabled = AESDecryptButton.Enabled = enabled;
+        }
+
         private void CopySystemHash_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(OutputSystemHash.Text);
+            if (OutputSystemHash.Text?.Any() ?? false)
+            {
+                Clipboard.SetText(OutputSystemHash.Text);
+            }
         }
 
         private void RSAOutputCopy_Click(object sender, EventArgs e)
         {
-            Clipboard.SetText(RSAOutput.Text);
+            if (RSAOutput.Text?.Any() ?? false)
+            {
+                Clipboard.SetText(RSAOutput.Text);
+            }
+        }
+
+        private void AESCopyOutputButton_Click(object sender, EventArgs e)
+        {
+            if (AESOutput.Text?.Any() ?? false)
+            {
+                Clipboard.SetText(AESOutput.Text);
+            }
         }
 
         private void CalculateSystemHashButton_Click(object sender, EventArgs e)
@@ -132,6 +162,28 @@ namespace EncryptionAndHashAlgorithms
             RSAOutput.Text = Encoding.UTF8.GetString(output);
             RSAOutput.SelectAll();
             RSAOutput.Focus();
+        }
+
+        private void AESEncryptButton_Click(object sender, EventArgs e)
+        {
+            var key = Encoding.UTF8.GetBytes(AESKeyInput.Text.Trim());
+            var initVector = Encoding.UTF8.GetBytes(AESVectorInput.Text.Trim());
+            var output = AESCypher.Encrypt(AESInput.Text.Trim(), key, initVector);
+
+            AESOutput.Text = Convert.ToBase64String(output);
+            AESOutput.SelectAll();
+            AESOutput.Focus();
+        }
+
+        private void AESDecryptButton_Click(object sender, EventArgs e)
+        {
+            var key = Encoding.UTF8.GetBytes(AESKeyInput.Text.Trim());
+            var initVector = Encoding.UTF8.GetBytes(AESVectorInput.Text.Trim());
+
+            var output = AESCypher.Decrypt(Convert.FromBase64String(AESInput.Text.Trim()), key, initVector);
+            AESOutput.Text = Encoding.UTF8.GetString(output);
+            AESOutput.SelectAll();
+            AESOutput.Focus();
         }
     }
 }

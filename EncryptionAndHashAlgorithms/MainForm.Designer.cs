@@ -57,7 +57,18 @@
             RSAInput = new TextBox();
             RSAPrivateKeyInput = new TextBox();
             RSAPublicKeyInput = new TextBox();
-            AesOption = new TabPage();
+            AesTabPage = new TabPage();
+            label9 = new Label();
+            label8 = new Label();
+            label7 = new Label();
+            label6 = new Label();
+            AESVectorInput = new TextBox();
+            AESKeyInput = new TextBox();
+            AESOutput = new TextBox();
+            AESInput = new TextBox();
+            AESCopyOutputButton = new Button();
+            AESDecryptButton = new Button();
+            AESEncryptButton = new Button();
             MainTabControl.SuspendLayout();
             HashTabPanel.SuspendLayout();
             HashTypeTabControl.SuspendLayout();
@@ -65,6 +76,7 @@
             EncryptionTabPanel.SuspendLayout();
             EctyptionTypeTabControl.SuspendLayout();
             RSAOption.SuspendLayout();
+            AesTabPage.SuspendLayout();
             SuspendLayout();
             // 
             // MainTabControl
@@ -236,7 +248,7 @@
             // EctyptionTypeTabControl
             // 
             EctyptionTypeTabControl.Controls.Add(RSAOption);
-            EctyptionTypeTabControl.Controls.Add(AesOption);
+            EctyptionTypeTabControl.Controls.Add(AesTabPage);
             EctyptionTypeTabControl.Location = new Point(6, 6);
             EctyptionTypeTabControl.Name = "EctyptionTypeTabControl";
             EctyptionTypeTabControl.SelectedIndex = 0;
@@ -380,15 +392,133 @@
             RSAPublicKeyInput.Size = new Size(401, 25);
             RSAPublicKeyInput.TabIndex = 0;
             // 
-            // AesOption
+            // AesTabPage
             // 
-            AesOption.Location = new Point(4, 26);
-            AesOption.Name = "AesOption";
-            AesOption.Padding = new Padding(3);
-            AesOption.Size = new Size(492, 271);
-            AesOption.TabIndex = 1;
-            AesOption.Text = "AES";
-            AesOption.UseVisualStyleBackColor = true;
+            AesTabPage.Controls.Add(label9);
+            AesTabPage.Controls.Add(label8);
+            AesTabPage.Controls.Add(label7);
+            AesTabPage.Controls.Add(label6);
+            AesTabPage.Controls.Add(AESVectorInput);
+            AesTabPage.Controls.Add(AESKeyInput);
+            AesTabPage.Controls.Add(AESOutput);
+            AesTabPage.Controls.Add(AESInput);
+            AesTabPage.Controls.Add(AESCopyOutputButton);
+            AesTabPage.Controls.Add(AESDecryptButton);
+            AesTabPage.Controls.Add(AESEncryptButton);
+            AesTabPage.Location = new Point(4, 26);
+            AesTabPage.Name = "AesTabPage";
+            AesTabPage.Padding = new Padding(3);
+            AesTabPage.Size = new Size(492, 271);
+            AesTabPage.TabIndex = 1;
+            AesTabPage.Text = "AES(CBC - 128)";
+            AesTabPage.UseVisualStyleBackColor = true;
+            // 
+            // label9
+            // 
+            label9.AutoSize = true;
+            label9.Location = new Point(45, 18);
+            label9.Name = "label9";
+            label9.Size = new Size(29, 17);
+            label9.TabIndex = 10;
+            label9.Text = "Key";
+            // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Location = new Point(6, 50);
+            label8.Name = "label8";
+            label8.Size = new Size(68, 17);
+            label8.TabIndex = 9;
+            label8.Text = "Init. vector";
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Location = new Point(26, 184);
+            label7.Name = "label7";
+            label7.Size = new Size(48, 17);
+            label7.TabIndex = 8;
+            label7.Text = "Output";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Location = new Point(37, 109);
+            label6.Name = "label6";
+            label6.Size = new Size(37, 17);
+            label6.TabIndex = 7;
+            label6.Text = "Input";
+            // 
+            // AESVectorInput
+            // 
+            AESVectorInput.BorderStyle = BorderStyle.FixedSingle;
+            AESVectorInput.Location = new Point(80, 47);
+            AESVectorInput.MaxLength = 16;
+            AESVectorInput.Name = "AESVectorInput";
+            AESVectorInput.Size = new Size(388, 25);
+            AESVectorInput.TabIndex = 6;
+            // 
+            // AESKeyInput
+            // 
+            AESKeyInput.BorderStyle = BorderStyle.FixedSingle;
+            AESKeyInput.Location = new Point(80, 16);
+            AESKeyInput.MaxLength = 16;
+            AESKeyInput.Name = "AESKeyInput";
+            AESKeyInput.Size = new Size(388, 25);
+            AESKeyInput.TabIndex = 5;
+            // 
+            // AESOutput
+            // 
+            AESOutput.BorderStyle = BorderStyle.FixedSingle;
+            AESOutput.Enabled = false;
+            AESOutput.Location = new Point(80, 182);
+            AESOutput.Name = "AESOutput";
+            AESOutput.ReadOnly = true;
+            AESOutput.Size = new Size(388, 25);
+            AESOutput.TabIndex = 4;
+            // 
+            // AESInput
+            // 
+            AESInput.BorderStyle = BorderStyle.FixedSingle;
+            AESInput.Location = new Point(80, 106);
+            AESInput.MaxLength = 300;
+            AESInput.Name = "AESInput";
+            AESInput.Size = new Size(388, 25);
+            AESInput.TabIndex = 3;
+            AESInput.TextChanged += AESInput_TextChanged;
+            // 
+            // AESCopyOutputButton
+            // 
+            AESCopyOutputButton.BackColor = Color.LightSteelBlue;
+            AESCopyOutputButton.Location = new Point(80, 213);
+            AESCopyOutputButton.Name = "AESCopyOutputButton";
+            AESCopyOutputButton.Size = new Size(388, 30);
+            AESCopyOutputButton.TabIndex = 2;
+            AESCopyOutputButton.Text = "Copy to clipboard";
+            AESCopyOutputButton.UseVisualStyleBackColor = false;
+            AESCopyOutputButton.Click += AESCopyOutputButton_Click;
+            // 
+            // AESDecryptButton
+            // 
+            AESDecryptButton.Enabled = false;
+            AESDecryptButton.Location = new Point(286, 137);
+            AESDecryptButton.Name = "AESDecryptButton";
+            AESDecryptButton.Size = new Size(182, 32);
+            AESDecryptButton.TabIndex = 1;
+            AESDecryptButton.Text = "Decrypt";
+            AESDecryptButton.UseVisualStyleBackColor = true;
+            AESDecryptButton.Click += AESDecryptButton_Click;
+            // 
+            // AESEncryptButton
+            // 
+            AESEncryptButton.Enabled = false;
+            AESEncryptButton.Location = new Point(80, 137);
+            AESEncryptButton.Name = "AESEncryptButton";
+            AESEncryptButton.Size = new Size(200, 32);
+            AESEncryptButton.TabIndex = 0;
+            AESEncryptButton.Text = "Encrypt";
+            AESEncryptButton.UseVisualStyleBackColor = true;
+            AESEncryptButton.Click += AESEncryptButton_Click;
             // 
             // MainForm
             // 
@@ -408,6 +538,8 @@
             EctyptionTypeTabControl.ResumeLayout(false);
             RSAOption.ResumeLayout(false);
             RSAOption.PerformLayout();
+            AesTabPage.ResumeLayout(false);
+            AesTabPage.PerformLayout();
             ResumeLayout(false);
         }
 
@@ -430,7 +562,7 @@
         private RadioButton PBKDF2HashOption;
         private TabControl EctyptionTypeTabControl;
         private TabPage RSAOption;
-        private TabPage AesOption;
+        private TabPage AesTabPage;
         private TextBox RSAInput;
         private TextBox RSAPrivateKeyInput;
         private TextBox RSAPublicKeyInput;
@@ -443,5 +575,16 @@
         private Button RSAEncryptButton;
         private TextBox RSAOutput;
         private Button RSAOutputCopy;
+        private Button AESCopyOutputButton;
+        private Button AESDecryptButton;
+        private Button AESEncryptButton;
+        private Label label9;
+        private Label label8;
+        private Label label7;
+        private Label label6;
+        private TextBox AESVectorInput;
+        private TextBox AESKeyInput;
+        private TextBox AESOutput;
+        private TextBox AESInput;
     }
 }
